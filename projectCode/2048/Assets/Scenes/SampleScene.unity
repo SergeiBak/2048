@@ -2024,6 +2024,7 @@ GameObject:
   - component: {fileID: 2099378590}
   - component: {fileID: 2099378592}
   - component: {fileID: 2099378591}
+  - component: {fileID: 2099378593}
   m_Layer: 5
   m_Name: GamePanel
   m_TagString: Untagged
@@ -2089,6 +2090,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099378589}
   m_CullTransparentMesh: 1
+--- !u!114 &2099378593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099378589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5015891bc7abfab47b32aa2e0d7073b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillPrefab: {fileID: 5345483933902218618, guid: ac2c4262bf5740a45b023fcb4ab03ab9, type: 3}
+  allCells:
+  - {fileID: 91743540}
+  - {fileID: 1980929305}
+  - {fileID: 1304471386}
+  - {fileID: 2116239435}
+  - {fileID: 1724974827}
+  - {fileID: 854324624}
+  - {fileID: 152731}
+  - {fileID: 610071696}
+  - {fileID: 1611730911}
+  - {fileID: 357160419}
+  - {fileID: 1054075482}
+  - {fileID: 1860589345}
+  - {fileID: 1495699718}
+  - {fileID: 1554851184}
+  - {fileID: 980700842}
+  - {fileID: 2116080693}
 --- !u!224 &2116080693 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6710869581154815386, guid: a03672fe8061f9f4785639434d87bc44, type: 3}
