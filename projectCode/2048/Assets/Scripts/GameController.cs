@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class GameController : MonoBehaviour
     public static int ticker; // track how many cells recieved this action, then call SpawnFill function
 
     [SerializeField] GameObject fillPrefab;
-    [SerializeField] Transform[] allCells;
+    [SerializeField] Cell[] allCells;
 
     public static Action<string> slide;
     public int myScore;
 
     [SerializeField] Text scoreDisplay;
+
+    int isGameOver;
+    [SerializeField] GameObject gameOverPanel;
 
     private void OnEnable()
     {
@@ -43,36 +47,54 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             ticker = 0;
+            isGameOver = 0;
             slide("w");
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             ticker = 0;
+            isGameOver = 0;
             slide("d");
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             ticker = 0;
+            isGameOver = 0;
             slide("s");
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             ticker = 0;
+            isGameOver = 0;
             slide("a");
         }
     }
 
     public void SpawnFill()
     {
+        bool isFull = true;
+        for (int i = 0; i < allCells.Length; i++)
+        {
+            if (allCells[i].fill == null)
+            {
+                isFull = false;
+            }
+        }
+
+        if (isFull)
+        {
+            return;
+        }
+
         int whichSpawn = UnityEngine.Random.Range(0, allCells.Length);
-        if (allCells[whichSpawn].childCount != 0)
+        if (allCells[whichSpawn].transform.childCount != 0)
         {
             SpawnFill();
             return;
         }
 
         float chance = UnityEngine.Random.Range(0f, 1f);
-        Debug.Log(chance);
+        //Debug.Log(chance);
 
         if (chance < 0.2f)
         {
@@ -80,7 +102,7 @@ public class GameController : MonoBehaviour
         }
         else if (chance < 0.8f)
         {
-            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
+            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn].transform);
 
             Fill tempFillScript = tempFill.GetComponent<Fill>();
             allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
@@ -88,7 +110,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
+            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn].transform);
 
             Fill tempFillScript = tempFill.GetComponent<Fill>();
             allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
@@ -100,13 +122,13 @@ public class GameController : MonoBehaviour
     public void StartSpawnFill()
     {
         int whichSpawn = UnityEngine.Random.Range(0, allCells.Length);
-        if (allCells[whichSpawn].childCount != 0)
+        if (allCells[whichSpawn].transform.childCount != 0)
         {
             SpawnFill();
             return;
         }
 
-        GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
+        GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn].transform);
 
         Fill tempFillScript = tempFill.GetComponent<Fill>();
         allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
@@ -117,5 +139,19 @@ public class GameController : MonoBehaviour
     {
         myScore += scoreIn;
         scoreDisplay.text = myScore.ToString();
+    }
+
+    public void GameOverCheck()
+    {
+        isGameOver++;
+        if(isGameOver >= 16)
+        {
+            gameOverPanel.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

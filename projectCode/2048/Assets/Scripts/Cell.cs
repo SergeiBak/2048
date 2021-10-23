@@ -24,6 +24,8 @@ public class Cell : MonoBehaviour
 
     private void OnSlide(string whatWasSent)
     {
+        CellCheck();
+
         if (whatWasSent == "w")
         {
             if (up != null)
@@ -94,7 +96,7 @@ public class Cell : MonoBehaviour
                 }
                 else if (currentCell.down.fill != nextCell.fill)
                 {
-                    Debug.Log("!Doubled");
+                    //Debug.Log("!Doubled");
                     nextCell.fill.transform.parent = currentCell.down.transform;
                     currentCell.down.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -115,7 +117,7 @@ public class Cell : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideUp(currentCell);
-                Debug.Log("Slide to empty");
+                //Debug.Log("Slide to empty");
             }
         }
 
@@ -154,7 +156,7 @@ public class Cell : MonoBehaviour
                 }
                 else if (currentCell.left.fill != nextCell.fill)
                 {
-                    Debug.Log("!Doubled");
+                    //Debug.Log("!Doubled");
                     nextCell.fill.transform.parent = currentCell.left.transform;
                     currentCell.left.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -175,7 +177,7 @@ public class Cell : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideRight(currentCell);
-                Debug.Log("Slide to empty");
+                //Debug.Log("Slide to empty");
             }
         }
 
@@ -214,7 +216,7 @@ public class Cell : MonoBehaviour
                 }
                 else if (currentCell.up.fill != nextCell.fill)
                 {
-                    Debug.Log("!Doubled");
+                    //Debug.Log("!Doubled");
                     nextCell.fill.transform.parent = currentCell.up.transform;
                     currentCell.up.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -235,7 +237,7 @@ public class Cell : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideDown(currentCell);
-                Debug.Log("Slide to empty");
+                //Debug.Log("Slide to empty");
             }
         }
 
@@ -274,7 +276,7 @@ public class Cell : MonoBehaviour
                 }
                 else if (currentCell.right.fill != nextCell.fill)
                 {
-                    Debug.Log("!Doubled");
+                    //Debug.Log("!Doubled");
                     nextCell.fill.transform.parent = currentCell.right.transform;
                     currentCell.right.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -295,7 +297,7 @@ public class Cell : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideLeft(currentCell);
-                Debug.Log("Slide to empty");
+                //Debug.Log("Slide to empty");
             }
         }
 
@@ -304,5 +306,40 @@ public class Cell : MonoBehaviour
             return;
         }
         SlideLeft(currentCell.right);
+    }
+
+    void CellCheck()
+    {
+        if (fill == null)
+            return;
+        if (up != null)
+        {
+            if (up.fill == null)
+                return;
+            if (up.fill.value == fill.value)
+                return;
+        }
+        if (right != null)
+        {
+            if (right.fill == null)
+                return;
+            if (right.fill.value == fill.value)
+                return;
+        }
+        if (down != null)
+        {
+            if (down.fill == null)
+                return;
+            if (down.fill.value == fill.value)
+                return;
+        }
+        if (left != null)
+        {
+            if (left.fill == null)
+                return;
+            if (left.fill.value == fill.value)
+                return;
+        }
+        GameController.instance.GameOverCheck();
     }
 }
