@@ -24,6 +24,13 @@ public class GameController : MonoBehaviour
 
     public void SpawnFill()
     {
+        int whichSpawn = Random.Range(0, allCells.Length);
+        if (allCells[whichSpawn].childCount != 0)
+        {
+            SpawnFill();
+            return;
+        }
+
         float chance = Random.Range(0f, 1f);
         Debug.Log(chance);
 
@@ -33,13 +40,11 @@ public class GameController : MonoBehaviour
         }
         else if (chance < 0.8f)
         {
-            int whichSpawn = Random.Range(0, allCells.Length);
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
             Debug.Log(2);
         }
         else
         {
-            int whichSpawn = Random.Range(0, allCells.Length);
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
             Debug.Log(4);
         }
