@@ -37,6 +37,7 @@ public class Fill : MonoBehaviour
     public void Double()
     {
         value *= 2;
+        GameController.instance.ScoreUpdate(value);
         valueDisplay.text = value.ToString();
     }
 }

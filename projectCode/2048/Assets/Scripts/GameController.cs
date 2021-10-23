@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameController : MonoBehaviour
     [SerializeField] Transform[] allCells;
 
     public static Action<string> slide;
+    public int myScore;
+
+    [SerializeField] Text scoreDisplay;
 
     private void OnEnable()
     {
@@ -107,5 +111,11 @@ public class GameController : MonoBehaviour
         Fill tempFillScript = tempFill.GetComponent<Fill>();
         allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
         tempFillScript.FillValueUpdate(2);
+    }
+
+    public void ScoreUpdate(int scoreIn)
+    {
+        myScore += scoreIn;
+        scoreDisplay.text = myScore.ToString();
     }
 }
