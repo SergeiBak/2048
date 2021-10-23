@@ -5,39 +5,55 @@ using System;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instance;
+    public static int ticker; // track how many cells recieved this action, then call SpawnFill function
+
     [SerializeField] GameObject fillPrefab;
     [SerializeField] Transform[] allCells;
 
     public static Action<string> slide;
 
+    private void OnEnable()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartSpawnFill();
+        StartSpawnFill();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnFill();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SpawnFill();
+        //}
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
+            ticker = 0;
             slide("w");
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
+            ticker = 0;
             slide("d");
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
+            ticker = 0;
             slide("s");
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            ticker = 0;
             slide("a");
         }
     }
@@ -63,6 +79,7 @@ public class GameController : MonoBehaviour
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
 
             Fill tempFillScript = tempFill.GetComponent<Fill>();
+            allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
             tempFillScript.FillValueUpdate(2);
         }
         else
@@ -70,7 +87,25 @@ public class GameController : MonoBehaviour
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
 
             Fill tempFillScript = tempFill.GetComponent<Fill>();
+            allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
             tempFillScript.FillValueUpdate(4);
         }
+    }
+
+
+    public void StartSpawnFill()
+    {
+        int whichSpawn = UnityEngine.Random.Range(0, allCells.Length);
+        if (allCells[whichSpawn].childCount != 0)
+        {
+            SpawnFill();
+            return;
+        }
+
+        GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
+
+        Fill tempFillScript = tempFill.GetComponent<Fill>();
+        allCells[whichSpawn].GetComponent<Cell>().fill = tempFillScript;
+        tempFillScript.FillValueUpdate(2);
     }
 }
