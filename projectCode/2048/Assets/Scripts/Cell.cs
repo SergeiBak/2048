@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,18 @@ public class Cell : MonoBehaviour
     public Cell left;
     public Cell up;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        GameController.slide += OnSlide;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        GameController.slide -= OnSlide;
+    }
+
+    private void OnSlide(string whatWasSent)
+    {
+        Debug.Log(whatWasSent);
     }
 }

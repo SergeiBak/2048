@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject fillPrefab;
     [SerializeField] Transform[] allCells;
+
+    public static Action<string> slide;
 
     // Start is called before the first frame update
     void Start()
@@ -20,18 +23,35 @@ public class GameController : MonoBehaviour
         {
             SpawnFill();
         }
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            slide("w");
+        }
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            slide("d");
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            slide("s");
+        }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            slide("a");
+        }
     }
 
     public void SpawnFill()
     {
-        int whichSpawn = Random.Range(0, allCells.Length);
+        int whichSpawn = UnityEngine.Random.Range(0, allCells.Length);
         if (allCells[whichSpawn].childCount != 0)
         {
             SpawnFill();
             return;
         }
 
-        float chance = Random.Range(0f, 1f);
+        float chance = UnityEngine.Random.Range(0f, 1f);
         Debug.Log(chance);
 
         if (chance < 0.2f)
