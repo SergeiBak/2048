@@ -41,12 +41,16 @@ public class GameController : MonoBehaviour
         else if (chance < 0.8f)
         {
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
-            Debug.Log(2);
+
+            Fill tempFillScript = tempFill.GetComponent<Fill>();
+            tempFillScript.FillValueUpdate(2);
         }
         else
         {
             GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
-            Debug.Log(4);
+
+            Fill tempFillScript = tempFill.GetComponent<Fill>();
+            tempFillScript.FillValueUpdate(4);
         }
     }
 }
