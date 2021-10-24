@@ -11,10 +11,36 @@ public class Fill : MonoBehaviour
 
     bool hasCombined;
 
+    Image myImage;
+
     public void FillValueUpdate(int valueIn)
     {
         value = valueIn;
         valueDisplay.text = value.ToString();
+
+        int colorIndex = GetColorIndex(value);
+        myImage = GetComponent<Image>();
+        if (colorIndex >= GameController.instance.fillColors.Length)
+        {
+            myImage.color = GameController.instance.defaultColor;
+        }
+        else
+        {
+            myImage.color = GameController.instance.fillColors[colorIndex];
+        }
+    }
+
+    int GetColorIndex(int valueIn)
+    {
+        int index = 0;
+        while (valueIn != 1)
+        {
+            index++;
+            valueIn /= 2;
+        }
+
+        index--;
+        return index;
     }
 
     private void Update()
@@ -39,5 +65,17 @@ public class Fill : MonoBehaviour
         value *= 2;
         GameController.instance.ScoreUpdate(value);
         valueDisplay.text = value.ToString();
+
+        int colorIndex = GetColorIndex(value);
+        if (colorIndex >= GameController.instance.fillColors.Length)
+        {
+            myImage.color = GameController.instance.defaultColor;
+        }
+        else
+        {
+            myImage.color = GameController.instance.fillColors[colorIndex];
+        }
+
+        GameController.instance.WinningCheck(value);
     }
 }

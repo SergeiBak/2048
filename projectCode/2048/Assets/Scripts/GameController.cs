@@ -21,6 +21,15 @@ public class GameController : MonoBehaviour
     int isGameOver;
     [SerializeField] GameObject gameOverPanel;
 
+    public Color[] fillColors;
+    public Color defaultColor;
+
+    [SerializeField] int winningScore;
+    [SerializeField] GameObject winningPanel;
+    bool hasWon;
+
+    bool inputDisabled = false;
+
     private void OnEnable()
     {
         if (instance == null)
@@ -43,6 +52,11 @@ public class GameController : MonoBehaviour
         //{
         //    SpawnFill();
         //}
+
+        if (inputDisabled)
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -153,5 +167,26 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void WinningCheck(int highestFill)
+    {
+        if (hasWon)
+        {
+            return;
+        }
+
+        if (highestFill == winningScore)
+        {
+            winningPanel.SetActive(true);
+            inputDisabled = true;
+            hasWon = true;
+        }
+    }
+
+    public void KeepPlaying()
+    {
+        winningPanel.SetActive(false);
+        inputDisabled = false;
     }
 }
