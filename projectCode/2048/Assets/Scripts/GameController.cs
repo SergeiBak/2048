@@ -30,6 +30,10 @@ public class GameController : MonoBehaviour
 
     bool inputDisabled = false;
 
+    float currentTime;
+    float timeCutoff;
+    bool timeStopped = false;
+
     private void OnEnable()
     {
         if (instance == null)
@@ -43,11 +47,18 @@ public class GameController : MonoBehaviour
     {
         StartSpawnFill();
         StartSpawnFill();
+
+        timeCutoff = Time.time + 30;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (timeCutoff > Time.time && !timeStopped)
+        {
+            currentTime += Time.deltaTime;
+        }
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    SpawnFill();
@@ -60,24 +71,32 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
+            timeCutoff = Time.time + 30;
+
             ticker = 0;
             isGameOver = 0;
             slide("w");
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
+            timeCutoff = Time.time + 30;
+
             ticker = 0;
             isGameOver = 0;
             slide("d");
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
+            timeCutoff = Time.time + 30;
+
             ticker = 0;
             isGameOver = 0;
             slide("s");
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            timeCutoff = Time.time + 30;
+
             ticker = 0;
             isGameOver = 0;
             slide("a");
@@ -160,6 +179,18 @@ public class GameController : MonoBehaviour
         isGameOver++;
         if(isGameOver >= 16)
         {
+            if (PlayerPrefs.GetInt("HighScore") < myScore)
+            {
+                PlayerPrefs.SetInt("HighScore", myScore);
+            }
+
+            if (!timeStopped)
+            {
+                currentTime += PlayerPrefs.GetInt("TimeSpent");
+                PlayerPrefs.SetInt("TimeSpent", (int)currentTime);
+            }
+
+            timeStopped = true;
             gameOverPanel.SetActive(true);
         }
     }
@@ -167,6 +198,11 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void Return()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void WinningCheck(int highestFill)
@@ -178,6 +214,11 @@ public class GameController : MonoBehaviour
 
         if (highestFill == winningScore)
         {
+            if (PlayerPrefs.GetInt("HighScore") < myScore)
+            {
+                PlayerPrefs.SetInt("HighScore", myScore);
+            }
+
             winningPanel.SetActive(true);
             inputDisabled = true;
             hasWon = true;

@@ -76,6 +76,11 @@ public class Fill : MonoBehaviour
             myImage.color = GameController.instance.fillColors[colorIndex];
         }
 
+        if (PlayerPrefs.GetInt("HighBlock") < value)
+        {
+            PlayerPrefs.SetInt("HighBlock", value);
+        }
+
         GameController.instance.WinningCheck(value);
     }
 }
