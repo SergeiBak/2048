@@ -1,4 +1,6 @@
 # 2048
+<img width="276.48" height="155.52" src="https://github.com/SergeiBak/PersonalWebsite/blob/master/images/2048.png?raw=true">
+
 ## Table of Contents
 * [Overview](#Overview)
 * [Test The Project!](#test-the-project)
