@@ -24,3 +24,6 @@ In order to play this version of 2048, follow the [link](https://sergeibak.githu
 ## Resources
 - Credit goes to [Info Gamer](https://www.youtube.com/channel/UCyoayn_uVt2I55ZCUuBVRcQ/playlists) for the helpful base game tutorial!
 - For the saving stats system, I made use of playprefs, here is some [helpful scripting documentation](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) on how that works!
+
+## Donations
+This game, like many of the others I have worked on, is completely free and made for fun and learning! If you would like to support what I do, you can donate at my metamask wallet address: ```0x32d04487a141277Bb100F4b6AdAfbFED38810F40```. Thank you very much!
