@@ -4,6 +4,7 @@
 ## Table of Contents
 * [Overview](#Overview)
 * [Test The Project!](#test-the-project)
+* [Code](#Code)
 * [Technologies](#Technologies)
 * [Resources](#Resources)
 * [Donations](#Donations)
@@ -15,6 +16,13 @@ This project is a recreation of a certain childhood game I used to play on Cool 
 
 ## Test The Project!
 In order to play this version of 2048, follow the [link](https://sergeibak.github.io/PersonalWebsite/2048.html) to a in-browser WebGL build (No download required!).
+
+## Code
+A brief description of all of the classes is as follows:
+- The ```Cell``` class is the slots in the board. They are not the tiles themselves. Since the cells never move, this class is used for much of the tile movement logic.
+- The ```Fill``` class involves the tiles themselves that move around the board. The logic for doubling the block value as well as displayed value and color is handled here.
+- The ```GameController``` class is used in the game scene itself for user input and tracking the game state, as well as to keep track of and update high scores for player stats. 
+- The ```MenuController``` class is used in the menu scene for transitioning between various panels, loading player stats, and transitioning to the game scene.
 
 ## Technologies
 - Unity
