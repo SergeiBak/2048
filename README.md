@@ -1,7 +1,7 @@
 # 2048
 ## Table of Contents
 * [Overview](#Overview)
-* [Test The Project!](#test-the-project!)
+* [Test The Project!](#test-the-project)
 * [Technologies](#Technologies)
 * [Resources](#Resources)
 
