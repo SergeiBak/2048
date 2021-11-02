@@ -6,6 +6,7 @@
 * [Test The Project!](#test-the-project)
 * [Technologies](#Technologies)
 * [Resources](#Resources)
+* [Donations](#Donations)
 
 ## Overview
 This project is a recreation of a certain childhood game I used to play on Cool Math Games called 2048. This solo project was developed in Unity using C# as part of my minigames series where I utilize various resources to remake simple games in order to further my learning as well as to have fun!
